@@ -1,33 +1,59 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { Route, Routes } from "react-router-dom";
 import styled from "styled-components";
-import { deleteTodo } from "../redux/moduels/todos";
+import { deleteTodo, toggleStatusTodo } from "../redux/moduels/todos";
 
 const TodoListContainer = (props) => {
   const { todos } = useSelector((state) => state.todos);
   const dispatch = useDispatch();
 
-  let paylord = parseInt(props.match.params.id)
-  
+
+  // console.log(todos)
+
   return (
     <>
       <h1>Working</h1>
       <StTodos>
-          {todos.map((todo) => (
+          {todos
+          .filter((todo)=>todo.isDone===false)
+          .map((todo) => ( 
+            <StTodo key={todo.id}>
+              <a href={todo.id}>상세보기</a> 
+              <h2>{todo.title}</h2>  
+              <p>{todo.body}</p>
+              <StBtn color="mistyrose" 
+                onClick={()=>{
+                  dispatch(deleteTodo(todo.id));
+                }}
+              > 삭제 </StBtn>
+              <StBtn color="lightcyan" 
+                onClick={()=>{
+                 dispatch(toggleStatusTodo(todo.id));
+                }}
+              > 
+              완료</StBtn>
+            </StTodo>
+          ))} 
+      </StTodos>
+
+      <h1>Done</h1>
+      <StTodos>
+          {todos
+          .filter((todo)=>todo.isDone===true)
+          .map((todo) => ( 
             <StTodo key={todo.id}>
               <a href={todo.id}>상세보기</a>
               <h2>{todo.title}</h2>  
               <p>{todo.body}</p>
               <StBtn color="mistyrose" onClick={()=>{
-                dispatch(deleteTodo(paylord));
+                dispatch(deleteTodo(todo.id));
               }}> 삭제 </StBtn>
               <StBtn color="lightcyan">
-              완료</StBtn>
+              취소</StBtn>
             </StTodo>
           ))} 
       </StTodos>
-      <h1>Done</h1>
-
     </>
   );
 };

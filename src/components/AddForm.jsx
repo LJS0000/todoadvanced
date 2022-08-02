@@ -8,7 +8,7 @@ const AddForm = () => {
   const [body, setBody] = useState("");
   const todos = useSelector((state) => state.todos.todos);
   const dispatch = useDispatch();
-
+  // console.log(todos)
   const onSubmitHandler = (e) => {
     e.preventDefault();
     if (title === '' || body ==='') return; 
@@ -20,17 +20,22 @@ const AddForm = () => {
         isDone: false,
       })
     );
+    setTitle('');
+    setBody('');
+
   };
 
-  // console.log(todos)
 
+ 
   return (
     <StFormContainer>
       <form onSubmit={onSubmitHandler}>
         <StInput
+          id="input"
           placeholder="제목"
           type="text"
           value={title}
+          input
           onChange={(e)=>{setTitle(e.target.value)}}
         />
          <StInput

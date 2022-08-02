@@ -17,7 +17,7 @@ const initialState = {
       id: 2, 
       title: "리액트 공부하기",
       body: "으려워",
-      isDone: false
+      isDone: true,
     }
   ]
 };
@@ -27,32 +27,55 @@ export const addTodo = (payload) => {
   return { type: ADD_TODO, payload };
 };
 
-export const deleteTodo = (payload) => {
-  console.log('지울 것', payload)
-  return { type: DELETE_TODO, payload };
+export const deleteTodo = (id) => {
+
+  return { type: DELETE_TODO, id };
 };
 
-export const toggleStatusTodo = (payload) => {
-  return { type: TOGGLE_TODO, payload };
+export const toggleStatusTodo = (isDone) => {
+  
+  return { type: TOGGLE_TODO, isDone };
 };
 
-export const getTodoById = (payload) => {
-  return { type: GET_TODO, payload };
+export const getTodoById = (id) => {
+  
+  return { type: GET_TODO, id };
 };
+
 
 // Reducer
 const todos = (state = initialState, action) => {
+
   switch (action.type) {
 
     case ADD_TODO:
       return {
         ...state,
         todos: [...state.todos, action.payload],
-    };
+      };
 
     case DELETE_TODO: 
-      return {}
-     
+      return {
+        todos: state.todos.filter((todo) => todo.id !== action.id)
+      };
+    
+    case TOGGLE_TODO: 
+      console.log(...state.todos)
+      return { 
+        todos: state.todos.filter((todo) => todo.isDone !== action.isDone)
+      };
+
+    case GET_TODO: 
+      return {
+        ...state,
+        todos: [...state.todos, action.id]
+      };
+        
+    
+      
+
+      
+    
 
 
 
