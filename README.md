@@ -3,9 +3,9 @@
 ### 컴포넌트 구조
 
 TODOADVANCED  // 기능과 뷰를 기준으로 분류
-⬛SRC
---◻ components                   
-    --◽ AddForm.jsx              
+- SRC
+-- components                   
+--- AddForm.jsx              
     --◽ TodoDetail.jsx
     --◽ TodoListContainer.jsx
 --◻ redux
