@@ -1,13 +1,18 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import { useNavigate, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import { getTodoById } from "../redux/moduels/todos";
 
-const TodoDetail = () => {
+const TodoDetail = (props) => {
   const { todos } = useSelector((state) =>(state.todos));
   const num = window.location.pathname.slice(1)
   // console.log(num)
-  console.log(todos)
+  const navigate = useNavigate();
+  const location = useLocation();
+  // console.log("location :>> ", location);
+
+  // console.log(todos)
   return (
     <StDetail>
        {todos
@@ -16,7 +21,11 @@ const TodoDetail = () => {
         <div key={todo.id}>
           <StDetailHeader>
             <p>id: {todo.id}</p>
-            <StDetailBtn >이전으로</StDetailBtn>
+            <StDetailBtn onClick={()=>{
+              navigate('/')
+            }}
+            
+            >이전으로</StDetailBtn>
           </StDetailHeader>
           <h2>{todo.title}</h2>  
           <p>{todo.body}</p>

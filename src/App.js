@@ -21,7 +21,7 @@ function App() {
   // console.log(flower);
 
   const { todos } = useSelector((state) => state.todos)
-  
+  // console.log(todos)
   return (
     <>
     <Routes>
@@ -39,7 +39,7 @@ function App() {
           <TodoListContainer/>
         </StContainer>
       }></Route>
-      <Route path='*' element={<TodoDetail/>}></Route>
+      <Route path='/:id' element={<TodoDetail todos={todos}/>}></Route>
     </Routes>
     </>
   )

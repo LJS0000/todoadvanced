@@ -1,12 +1,14 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, Link } from "react-router-dom";
 import styled from "styled-components";
 import { deleteTodo, toggleStatusTodo } from "../redux/moduels/todos";
+
 
 const TodoListContainer = (props) => {
   const { todos } = useSelector((state) => state.todos);
   const dispatch = useDispatch();
+
 
 
   // console.log(todos)
@@ -19,7 +21,7 @@ const TodoListContainer = (props) => {
           .filter((todo)=>todo.isDone===false)
           .map((todo) => ( 
             <StTodo key={todo.id}>
-              <a href={todo.id}>상세보기</a> 
+              <Link to={`/${todo.id}`}>상세보기</Link> 
               <h2>{todo.title}</h2>  
               <p>{todo.body}</p>
               <StBtn color="mistyrose" 
@@ -29,12 +31,13 @@ const TodoListContainer = (props) => {
               > 삭제 </StBtn>
               <StBtn color="lightcyan" 
                 onClick={()=>{
-                 dispatch(toggleStatusTodo(todo.id));
+                 dispatch(toggleStatusTodo(todo));
                 }}
               > 
               완료</StBtn>
             </StTodo>
           ))} 
+
       </StTodos>
 
       <h1>Done</h1>
@@ -43,13 +46,17 @@ const TodoListContainer = (props) => {
           .filter((todo)=>todo.isDone===true)
           .map((todo) => ( 
             <StTodo key={todo.id}>
-              <a href={todo.id}>상세보기</a>
+              <Link to={`/${todo.id}`}>상세보기</Link> 
               <h2>{todo.title}</h2>  
               <p>{todo.body}</p>
               <StBtn color="mistyrose" onClick={()=>{
                 dispatch(deleteTodo(todo.id));
               }}> 삭제 </StBtn>
-              <StBtn color="lightcyan">
+              <StBtn color="lightcyan"
+                onClick={()=>{
+                  dispatch(toggleStatusTodo(todo));
+                }}
+              >
               취소</StBtn>
             </StTodo>
           ))} 
@@ -86,6 +93,7 @@ const StBtn = styled.button`
   border-radius: 10px;
   background-color: ${props=>props.color};
 `;
+
 
 
 // {todos

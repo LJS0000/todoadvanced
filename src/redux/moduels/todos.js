@@ -60,9 +60,10 @@ const todos = (state = initialState, action) => {
       };
     
     case TOGGLE_TODO: 
-      console.log(...state.todos)
+      // console.log(action.isDone.isDone)
+      const newtodo = action.isDone.isDone === false ? action.isDone.isDone = true : action.isDone.isDone = false;
       return { 
-        todos: state.todos.filter((todo) => todo.isDone !== action.isDone)
+        todos: [...state.todos]
       };
 
     case GET_TODO: 
